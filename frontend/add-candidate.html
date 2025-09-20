@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Candidate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <h2>Add Candidate</h2>
+    <form id="candidateForm">
+        <label>Name:</label>
+        <input type="text" id="name" required><br><br>
+        <label>Party ID:</label>
+        <input type="number" id="partyId" required><br><br>
+        <label>Position:</label>
+        <input type="text" id="position"><br><br>
+        <label>Campaign Info:</label>
+        <textarea id="campaignInfo"></textarea><br><br>
+        <label>Election ID:</label>
+        <input type="number" id="electionId" required><br><br>
+
+        <button type="submit">Add Candidate</button>
+    </form>
+
+    <p id="msg"></p>
+
+    <script>
+        document.getElementById("candidateForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const candidate = {
+                name: document.getElementById("name").value,
+                partyId: parseInt(document.getElementById("partyId").value),
+                position: document.getElementById("position").value,
+                campaignInfo: document.getElementById("campaignInfo").value,
+                electionId: parseInt(document.getElementById("electionId").value)
+            };
+
+            fetch("http://localhost:8080/candidates/add", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(candidate)
+            })
+            .then(res => res.text())
+            .then(msg => document.getElementById("msg").textContent = msg)
+            .catch(() => document.getElementById("msg").textContent = "Error adding candidate.");
+        });
+    </script>
+</body>
+</html>

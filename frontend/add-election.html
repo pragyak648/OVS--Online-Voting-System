@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Election</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <h2>Add Election</h2>
+    <form id="electionForm">
+        <label>Name:</label>
+        <input type="text" id="name" required><br><br>
+        <label>Date:</label>
+        <input type="date" id="date" required><br><br>
+        <button type="submit">Add Election</button>
+    </form>
+
+    <p id="msg"></p>
+
+    <script>
+        document.getElementById("electionForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const election = {
+                name: document.getElementById("name").value,
+                date: document.getElementById("date").value
+            };
+
+            fetch("http://localhost:8080/elections/add", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(election)
+            })
+            .then(res => res.text())
+            .then(msg => document.getElementById("msg").textContent = msg)
+            .catch(() => document.getElementById("msg").textContent = "Error adding election.");
+        });
+    </script>
+</body>
+</html>

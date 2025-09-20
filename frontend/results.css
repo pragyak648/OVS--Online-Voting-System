@@ -1,0 +1,84 @@
+/* results.css - for results display */
+
+
+#results {
+    margin-top: 20px;
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    box-sizing: border-box;
+}
+#results ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#results li {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    font-size: clamp(0.9rem, 2vw, 1rem);
+}
+#results li:last-child {
+    border-bottom: none;
+}
+
+/* Refresh button styling */
+#refreshBtn {
+    background: linear-gradient(45deg, #3498db, #2ecc71);
+    color: white;
+    font-weight: bold;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin: 15px auto;
+    display: block;
+    width: auto;        /* ✅ not full width */
+    min-width: 160px;   /* keep a nice size */
+    max-width: 250px;   /* prevent it from growing too much */
+    text-align: center;
+}
+
+#refreshBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 6px 12px rgba(0,0,0,0.3);
+}
+
+
+/* Error / Empty message styling */
+#results p.error {
+    display: inline-block;
+    background: rgba(255, 0, 0, 0.2);
+    color: #ff4d4d;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-align: center;
+    margin: 15px auto;
+    font-size: 0.95rem;
+}
+
+
+
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    #results {
+        width: 100%;
+        padding: 15px;
+    }
+}
+@media (max-width: 480px) {
+    #results {
+        padding: 10px;
+    }
+    #results li {
+        font-size: 0.85rem;
+        padding: 8px;
+    }
+}
+
+

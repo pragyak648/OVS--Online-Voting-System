@@ -1,7 +1,88 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Login | OVS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="form.css">
+
+</head>
+<body>
+    <!-- Navbar -->
+
+    <nav>
+    <div class="logo">🗳️ OVS</div>
+
+    <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+       </div>
+
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="voter-login.html" class="active">Voter</a></li>
+        <li><a href="candidate-login.html" >Candidate</a></li>
+        <li><a href="admin-login.html">Admin</a></li>
+        <li><a href="results.html">Results</a></li>
+    </ul>
+</nav>
+   
+
+    <!-- Overlay + Page Content -->
+    <div class="overlay">
+        <h2>Voter Login</h2>
+        <form id="loginForm">
+            <label>Email:</label> 
+            <input type="email" id="email" required>
+            <label>Password:</label>
+            <input type="password" id="password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p id="loginMsg"></p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        © 2025 Online Voting System | All Rights Reserved
+    </footer>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            fetch('http://localhost:8080/voters/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            })
+            .then(response => response.text())
+            .then(msg => {
+                document.getElementById('loginMsg').textContent = msg;
+                if (msg === "Login successful") {
+                    window.location.href = "vote.html";
+                }
+            })
+            .catch(() => {
+                document.getElementById('loginMsg').textContent = "Network/API error!";
+            });
+        });
+    </script>
+     <script src="navbar.js"></script>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Voter Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="form.css">
+
 </head>
 <body>
     <h2>Voter Login</h2>
@@ -16,27 +97,34 @@
     <p id="loginMsg"></p>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();   // 👈 THIS is preventDefault()
 
-            fetch('http://localhost:8080/voters/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
-            })
-            .then(response => response.text())  // use text() because backend returns plain string
-            .then(msg => {
-                document.getElementById('loginMsg').textContent = msg;
-                if (msg === "Login successful") {
-                    window.location.href = "vote.html"; // redirect on success
-                }
-            })
-            .catch(() => {
-                document.getElementById('loginMsg').textContent = "Network/API error!";
-            });
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+
+
+
+        fetch('http://localhost:8080/voters/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        })
+        .then(response => response.text())
+        .then(msg => {
+            document.getElementById('loginMsg').textContent = msg;
+            if (msg === "Login successful") {
+                window.location.href = "vote.html";
+            }
+        })
+        .catch(() => {
+            document.getElementById('loginMsg').textContent = "Network/API error!";
         });
-    </script>
+    });
+</script>
+
+
+    
 </body>
-</html>
+</html>  -->

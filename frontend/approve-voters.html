@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Approve Voters</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+    <h2>Pending Voters</h2>
+    <div id="voters"></div>
+
+    <script>
+        function fetchVoters() {
+            fetch("http://localhost:8080/voters/pending")
+            .then(res => res.json())
+            .then(voters => {
+                let html = "<ul>";
+                voters.forEach(v => {
+                    html += `<li>${v.name} (${v.email})
+                        <button onclick="approveVoter(${v.voterId})">Approve</button>
+                    </li>`;
+                });
+                html += "</ul>";
+                document.getElementById("voters").innerHTML = html;
+            })
+            .catch(() => document.getElementById("voters").textContent = "Error loading voters.");
+        }
+
+        function approveVoter(voterId) {
+            fetch(`http://localhost:8080/voters/approve/${voterId}`, { method: "PUT" })
+            .then(res => res.text())
+            .then(() => fetchVoters());
+        }
+
+        fetchVoters();
+    </script>
+</body>
+</html>
