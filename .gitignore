@@ -1,0 +1,18 @@
+# Ignore Windows system files
+AppData/
+*.jtx
+
+# Ignore IDE/editor settings
+.vscode/
+.idea/
+
+# Ignore build/temporary files
+*.class
+*.log
+target/
+bin/
+out/
+
+# Ignore OS junk files
+.DS_Store
+Thumbs.db

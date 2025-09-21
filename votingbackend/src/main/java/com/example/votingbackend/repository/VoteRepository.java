@@ -1,9 +1,12 @@
 package com.example.votingbackend.repository;
 
 import com.example.votingbackend.model.Vote;
-import com.example.votingbackend.model.VoteId;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface VoteRepository extends JpaRepository<Vote, VoteId> {
-    boolean existsByVoterIdAndCandidateId(int voterId, int candidateId);
+@Repository
+public interface VoteRepository extends JpaRepository<Vote, Long> {
+
+    // Checks if voter already voted for a candidate
+    boolean existsByVoterIdAndCandidateId(Long voterId, Long candidateId);
 }

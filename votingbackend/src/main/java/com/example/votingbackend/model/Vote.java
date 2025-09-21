@@ -4,48 +4,43 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@IdClass(VoteId.class)
-@Table(name = "vote")
+@Table(name = "votes")
 public class Vote {
 
     @Id
-    @Column(name = "voter_id")
-    private int voterId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Id
-    @Column(name = "candidate_id")
-    private int candidateId;
+    // Foreign key to Voter
+    @Column(name = "voter_id", nullable = false)
+    private Long voterId;
 
-    @Column(name = "election_id")
-    private int electionId;
+    // Foreign key to Candidate
+    @Column(name = "candidate_id", nullable = false)
+    private Long candidateId;
 
-    @Column(name = "vote_date")
+    @Column(name = "vote_date", nullable = false)
     private LocalDateTime voteDate;
 
-    // Getters and Setters
+    // Constructors
+    public Vote() {}
 
-    public int getVoterId() {
-        return voterId;
-    }
-    public void setVoterId(int voterId) {
+    public Vote(Long voterId, Long candidateId) {
         this.voterId = voterId;
-    }
-    public int getCandidateId() {
-        return candidateId;
-    }
-    public void setCandidateId(int candidateId) {
         this.candidateId = candidateId;
+        this.voteDate = LocalDateTime.now();
     }
-    public int getElectionId() {
-        return electionId;
-    }
-    public void setElectionId(int electionId) {
-        this.electionId = electionId;
-    }
-    public LocalDateTime getVoteDate() {
-        return voteDate;
-    }
-    public void setVoteDate(LocalDateTime voteDate) {
-        this.voteDate = voteDate;
-    }
+
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Long getVoterId() { return voterId; }
+    public void setVoterId(Long voterId) { this.voterId = voterId; }
+
+    public Long getCandidateId() { return candidateId; }
+    public void setCandidateId(Long candidateId) { this.candidateId = candidateId; }
+
+    public LocalDateTime getVoteDate() { return voteDate; }
+    public void setVoteDate(LocalDateTime voteDate) { this.voteDate = voteDate; }
 }
